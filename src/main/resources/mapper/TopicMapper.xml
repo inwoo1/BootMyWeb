@@ -15,5 +15,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						   #{topic_title},
 						   #{topic_content})
 	</insert>
+	
+	<select id="getList" resultType="TopicVO">
+		select * from TOPIC
+		order by topic_num desc
+		
+	</select>
+	
+	<select id="getListMe" resultType="TopicVO">
+		select * from TOPIC
+		where topic_id = #{topic_id}
+	
+	</select>
+	
+	<select id="getDetail" resultType="TopicVO">
+		select * from TOPIC
+		where topic_num = #{topic_num}
+	</select>
+	
+	<update id="update">
+		update TOPIC set
+		topic_title = #{topic_title},
+		topic_content = #{topic_content}
+		where topic_id = #{topic_id}
+	</update>
+	
+	<delete id="delete">
+		delete from TOPIC where = #{topic_num}
+	</delete>
 
 </mapper>

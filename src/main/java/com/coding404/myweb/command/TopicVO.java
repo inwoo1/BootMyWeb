@@ -1,4 +1,4 @@
-package com.conding404.myweb.command;
+package com.coding404.myweb.command;
 
 import java.time.LocalDateTime;
 

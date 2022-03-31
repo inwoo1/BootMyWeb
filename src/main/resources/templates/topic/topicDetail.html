@@ -18,7 +18,7 @@
 						</div>
 					</div>
                     <div class="page_title">게시글 연습 ><span class="page_subtitle">글 상세보기</span></div>
-                    <form name="#####" action="#####" method="post">
+                    <form name="####" action="#####" method="post">
                         <div class="full_collum collum">
                             <ul>
                                 <li class="collum_tit">
@@ -32,22 +32,22 @@
                                                 <tr>
                                                     <th>등록일</th>
                                                     <td>
-                                                        <span>2016-01-01</span>
+                                                        <span>[[${topicVO.topic_regdate}]]</span>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>아이디</th>
-                                                    <td>admin</td>
+                                                    <td>[[${topicVO.topic_id}]]</td>
                                                 </tr>
 
                                                 <tr>
                                                     <th>제목</th>
-                                                    <td colspan="5">오늘은 해가뜨려나?</td>
+                                                    <td colspan="5">[[${topicVO.topic_title}]]</td>
                                                 </tr>
                                                 <tr>
                                                     <th>내용</th>
                                                     <td colspan="5">
-                                                        <div style="min-height: 300px;">오늘은 비가오려나?
+                                                        <div style="min-height: 300px;">[[${topicVO.topic_content}]]
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -55,8 +55,8 @@
 
                                             </table>
                                             <div class="btn_area">
-                                                <input type="button" class="save" value="등록하러가기">
-                                            	<input type="button" class="delete" value="전체목록으로">
+                                                <input type="button" class="save" value="수정하러가기" th:onclick="|topic_modify()|">
+                                            	<input type="button" class="delete" value="전체목록으로" onclick="location.href='topicListAll'">
                                                
                                             </div>
                                         </li>
@@ -75,5 +75,15 @@
     </div>
     <!-- wrap end -->
 </th:block>
+
+<script th:inline="javascript">
+	var num = '[[${topicVO.getTopic_num}]]';
+	console.log(num);
+	function topic_modify() {
+		
+		location.href="/topic/topicModify?topic_num=" + num;
+		
+	}
+</script>
 
 </html>

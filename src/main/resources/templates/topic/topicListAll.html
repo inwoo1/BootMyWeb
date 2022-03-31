@@ -20,7 +20,7 @@
 					</div>
 					<div class="page_title">관리자검색</div>
 					
-					<form name="###########" action="############" method="get" >
+					<form name="#" action="############" method="get" >
 					<div class="search_block flfull">
 
 						<div class="fl">
@@ -46,7 +46,7 @@
 						<div class="fr">
 							<div class="search_btn_area">
 								<a href="#" class="normal_btn purplebtn">검색</a>
-								<a href="#" class="normal_btn purplebtn02">등록</a>
+								<a href="topicReg" class="normal_btn purplebtn02">등록</a>
 							</div>
 						</div>
 					</div>
@@ -74,25 +74,18 @@
 												<th>등록일</th>
 											</tr>
 												
-											<tr>
-												<td>1</td>
-												<td>admin</td>
-												<td>오늘은 해가뜨려나?</td>
+											<tr th:each="vo, state : ${vo}">
+												<td>[[${state.index + 1}]]</td>
+												<td>[[${vo.topic_id}]]</td>
+												<td>[[${vo.topic_title}]]</td>
 												<td>
-													<a title="상세보기(클릭)" href="#">오늘은 비가오려나?</a>
+													<a title="상세보기(클릭)" th:href="@{/topic/topicDetail(topic_num=${vo.topic_num})}">[[${vo.topic_content}]]</a>
 												</td>
-												<td>2016-01-01</td>
+												<td>[[${vo.topic_regdate}]]</td>
+												
 											</tr>
 
-                                            <tr>
-												<td>1</td>
-												<td>coding404</td>
-												<td>안녕하세요!</td>
-												<td>
-													<a title="상세보기(클릭)" href="#">오늘은 해가뜬데요.</a>
-												</td>
-												<td>2016-01-01</td>
-											</tr>
+                                          
 										</table>
 
 
