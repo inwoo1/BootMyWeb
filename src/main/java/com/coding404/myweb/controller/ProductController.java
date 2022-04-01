@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.coding404.myweb.command.ProductVO;
 import com.coding404.myweb.product.ProductService;
+import com.coding404.myweb.util.Criteria;
+import com.coding404.myweb.util.PageVO;
 
 import oracle.jdbc.proxy.annotation.Post;
 
@@ -40,13 +42,21 @@ public class ProductController {
 	
 	//목록화면
 	@GetMapping("/productList")
-	public String productList(Model model) {
+	public String productList(Model model, Criteria cri) {
 		
-		ArrayList<ProductVO> list = productService.getList();
-		model.addAttribute("list", list);
+		System.out.println(cri.toString());
+//		ArrayList<ProductVO> list = productService.getList();
 		
-				
+		//페이지
+		ArrayList<ProductVO> list = productService.getList(cri);
+		int total = productService.getTotal(cri);
+		PageVO pageVO = new PageVO(cri, total);
 		
+		System.out.println(pageVO.toString());
+		
+		//데이터저장
+		model.addAttribute("list", list); //데이터
+		model.addAttribute("pageVO", pageVO); //페이지네이션
 		return "product/productList";
 	}
 	//상세화면

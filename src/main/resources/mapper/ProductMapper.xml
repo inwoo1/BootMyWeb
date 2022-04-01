@@ -30,9 +30,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getList" resultType="ProductVO">
-		select * from PRODUCT 
+		<!-- select * from PRODUCT 
 		where prod_writer = 'admin'
-		order by prod_id desc
+		order by prod_id desc -->
+		
+		<![CDATA[
+		SELECT *
+    	FROM (select A.*, @ROWNUM := @ROWNUM + 1 AS RN
+        	  from(select *
+					from PRODUCT
+					where prod_writer = 'admin'
+		]]>			
+					<if test="startDate != '' and startDate != null">
+					<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') > date_format(#{startDate}, '%Y-%m-%d')]]>
+					</if>
+					<if test="endDate != '' and endDate != null">
+	                <![CDATA[and date_format(prod_enddate, '%Y-%m-%d') <= date_format(#{endDate}, '%Y-%m-%d')]]>
+					</if>
+					<if test="searchName != '' and searchName != null">
+	                and prod_name like concat('%', #{searchName}, '%')
+					</if>    
+	                <if test="searchContent != '' and searchContent != null">
+	                and prod_content like concat('%', #{searchContent}, '%')
+	                </if>
+					order by
+					<if test="searchPrice == 'desc' ">
+					prod_price desc,
+					</if>
+					<if test="searchPrice == 'asc' ">
+					prod_price asc,
+					</if>
+					prod_id desc) A, (select @ROWNUM := 0) D
+		<![CDATA[
+                )B
+        WHERE RN > (#{page}-1) * #{amount} AND RN <= #{page} * #{amount}
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) as total
+		from PRODUCT
+		where prod_writer = 'admin'
+		<if test="startDate != '' and startDate != null">
+			<![CDATA[and date_format(prod_enddate, '%Y-%m-%d') > date_format(#{startDate}, '%Y-%m-%d')]]>
+		</if>
+		<if test="endDate != '' and endDate != null">
+	        <![CDATA[and date_format(prod_enddate, '%Y-%m-%d') <= date_format(#{endDate}, '%Y-%m-%d')]]>
+		</if>
+		<if test="searchName != '' and searchName != null">
+	        and prod_name like concat('%', #{searchName}, '%')
+		</if>    
+	    <if test="searchContent != '' and searchContent != null">
+	    	and prod_content like concat('%', #{searchContent}, '%')
+	    </if>
 	</select>
 	
 	<select id="getDetail" resultType="ProductVO">

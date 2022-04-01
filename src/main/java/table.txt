@@ -21,3 +21,16 @@ CREATE TABLE TOPIC(
         TOPIC_TITLE VARCHAR(50) NOT NULL,	## 제목	
         TOPIC_CONTENT VARCHAR(500)  ## 내용
         );
+        
+        
+페이지네이션
+	SELECT *
+    FROM (        select A.*, @ROWNUM := @ROWNUM + 1 AS RN #rownum변수 +1로 rn 사용
+        from(select *
+				from PRODUCT
+				where prod_writer = 'admin'
+				order by prod_id desc) A, (select @ROWNUM := 0) D #rownum변수 초기화
+                )B
+                WHERE RN > 10 AND RN <=20;
+total                
+select count(*) as total from PRODUCT where prod_writer = 'admin';
