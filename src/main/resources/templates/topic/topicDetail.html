@@ -18,7 +18,7 @@
 						</div>
 					</div>
                     <div class="page_title">게시글 연습 ><span class="page_subtitle">글 상세보기</span></div>
-                    <form name="####" action="#####" method="post">
+                    <form name="topicDetail" action="#####" method="post">
                         <div class="full_collum collum">
                             <ul>
                                 <li class="collum_tit">
@@ -77,13 +77,13 @@
 </th:block>
 
 <script th:inline="javascript">
-	var num = '[[${topicVO.getTopic_num}]]';
-	console.log(num);
+
+ 	var num = '[[${topicVO.topic_num}]]';
 	function topic_modify() {
 		
-		location.href="/topic/topicModify?topic_num=" + num;
+	location.href="/topic/topicModify?topic_num=" + num;
 		
-	}
+	} 
 </script>
 
 </html>

@@ -37,11 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update TOPIC set
 		topic_title = #{topic_title},
 		topic_content = #{topic_content}
-		where topic_id = #{topic_id}
+		where topic_num = #{topic_num}
 	</update>
 	
 	<delete id="delete">
-		delete from TOPIC where = #{topic_num}
+		delete from TOPIC where topic_num = #{topic_num}
 	</delete>
 
 </mapper>
